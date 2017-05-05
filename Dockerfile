@@ -39,14 +39,6 @@ RUN echo 'export PATH=$CONDA_DIR/bin:$PATH' > /etc/profile.d/conda.sh && \
     $CONDA_DIR/bin/conda install --yes conda==3.14.1 ipython-notebook
 ENV PATH $CONDA_DIR/bin:$PATH
 
-# This kernel becomes available in the notebook with what ever
-# packages are installed in the conda environment
-# The python2 kernel is not necessary but nice to have
-RUN /bin/bash -c "conda create -n py27 python=2.7 && \
-    source activate py27 && \
-    conda install --yes ipython-notebook && \
-    ipython kernelspec install-self"
-
 RUN mkdir -p /srv/
 WORKDIR /srv/
 
