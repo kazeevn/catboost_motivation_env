@@ -42,6 +42,9 @@ WORKDIR /srv/
 ADD https://raw.githubusercontent.com/jupyterhub/jupyterhub/master/scripts/jupyterhub-singleuser /usr/local/bin/jupyterhub-singleuser
 RUN chmod 755 /usr/local/bin/jupyterhub-singleuser
 
+ADD environment.yml /environment.yml
+RUN conda env create -f /environment.yml
+
 # jupyter is our user
 RUN useradd -m -s /bin/bash jupyter
 
@@ -56,6 +59,3 @@ EXPOSE 8888
 
 ADD singleuser.sh /srv/singleuser/singleuser.sh
 CMD ["sh", "/srv/singleuser/singleuser.sh"]
-
-ADD environment.yml /environment.yml
-RUN conda env create -f /environment.yml
