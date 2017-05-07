@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:14.04
 MAINTAINER Nikita Kazeev <kazeevn@yandex-team.ru>
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -33,11 +33,12 @@ RUN apt-get update && apt-get install -y -q \
 # Install anaconda
 ENV CONDA_DIR /opt/conda
 RUN echo 'export PATH=$CONDA_DIR/bin:$PATH' > /etc/profile.d/conda.sh && \
-    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-3.9.1-Linux-x86_64.sh && \
-    /bin/bash /Miniconda3-3.9.1-Linux-x86_64.sh -b -p $CONDA_DIR && \
-    rm Miniconda3-3.9.1-Linux-x86_64.sh && \
-    $CONDA_DIR/bin/conda install --yes conda==3.14.1 ipython-notebook
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-4.3.11-Linux-x86_64.sh && \
+    /bin/bash /Miniconda3-4.3.11-Linux-x86_64.sh -b -p $CONDA_DIR && \
+    rm Miniconda3-4.3.11-Linux-x86_64.sh && \
+    $CONDA_DIR/bin/conda install --yes notebook
 ENV PATH $CONDA_DIR/bin:$PATH
+
 
 RUN mkdir -p /srv/
 WORKDIR /srv/
@@ -60,3 +61,4 @@ EXPOSE 8888
 
 ADD singleuser.sh /srv/singleuser/singleuser.sh
 CMD ["sh", "/srv/singleuser/singleuser.sh"]
+
